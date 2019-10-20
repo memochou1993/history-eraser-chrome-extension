@@ -1,36 +1,53 @@
-const keywords = [
-	//
-];
+const deleteRecords = () => {
+  chrome.storage.sync.get({
+    keywords: '',
+  }, (items) => {
+    const keywords = items.keywords.split('\n');
 
-const event = 'history.onVisited';
-
-const removeItem = (item) => {
-  const { url } = item;
-
-  if (keywords.some((keyword) => url.includes(keyword))) {
-    chrome.history.deleteUrl({
-      url,
-    }, () => {
-      console.debug(`Removed item: ${url}`);
-    });
-  };
+    keywords.forEach((keyword) => {
+      chrome.history.search({
+        text: keyword,
+      }, (records) => {
+        records.forEach((record) => {
+          chrome.history.deleteUrl({
+            url: record.url,
+          }, () => {
+            console.info(`Deleted record: ${record.url}`);
+          });
+        });
+      });
+    })
+  });
 };
 
-switch (event) {
-  case 'history.onVisited': {
-    chrome.history.onVisited.addListener(removeItem);
-    break;
+const eventHandler = (event) => {
+  switch (event) {
+    case 'history.onVisited': {
+      console.debug(`Triggered event: history.onVisited`);
+      chrome.history.onVisited.addListener(deleteRecords);
+      break;
+    }
+    case 'windows.onRemoved': {
+      console.debug(`Triggered event: windows.onRemoved`);
+      chrome.windows.onRemoved.addListener(deleteRecords);
+      break;
+    }
+    default:
+      break;
   }
-  case 'windows.onRemoved': {
-    chrome.windows.onRemoved.addListener(() => {
-      chrome.history.search({
-          text: '',
-        }, (items) => {
-          items.forEach(removeItem);
-        });
-    });
-    break;
-  }
-  default:
-    break;
 }
+
+const trigger = () => {
+  chrome.storage.sync.get({
+    event: '',
+  }, (items) => {
+    eventHandler(items.event);
+  });
+};
+
+chrome.storage.onChanged.addListener(() => {
+  console.debug(`Triggered event: storage.onChanged`);
+  trigger();
+});
+
+trigger();
