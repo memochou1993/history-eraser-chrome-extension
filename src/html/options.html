@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/material.min.css">
+    <title>Options</title>
+</head>
+<body>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-card">
+                <div class="mdl-card__supporting-text">
+                    <div>
+                        <label for="keywords">Keywords (one per line)</label>
+                    </div>
+                    <div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <textarea name="keywords" rows="10" class="mdl-textfield__input" id="keywords"></textarea>
+                            <label class="mdl-textfield__label"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="history.onVisited">
+                            <input type="radio" name="event" value="history.onVisited" class="mdl-radio__button" id="history.onVisited" checked>
+                            <span class="mdl-radio__label">Delete when page is visited</span>
+                        </label>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="windows.onRemoved">
+                            <input type="radio" name="event" value="windows.onRemoved" class="mdl-radio__button" id="windows.onRemoved">
+                            <span class="mdl-radio__label">Delete when window is closed</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="save">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/options.js"></script>
+    <script defer src="../js/material.min.js"></script>
+</body>
+</html>
+
+<style type="text/css">
+    .mdl-card {
+        width: 100%;
+    }
+    div {
+        padding: 8px;
+    }
+    textarea {
+        width: 100px;
+    }
+</style>
