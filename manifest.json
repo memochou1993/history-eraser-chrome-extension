@@ -8,7 +8,7 @@
   },
   "background": {
     "scripts": [
-      "app.js"
+      "main.js"
     ]
   },
   "options_ui": {

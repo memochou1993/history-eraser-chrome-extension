@@ -5,20 +5,20 @@ const saveOptions = () => {
   chrome.storage.sync.set({
     keywords,
     event,
-  }, function() {
+  }, () => {
     window.close();
   });
-}
+};
 
 const restoreOptions = () => {
   chrome.storage.sync.get({
     keywords: '',
     event: '',
-  }, function(items) {
+  }, (items) => {
     document.querySelector('textarea[name="keywords"]').value = items.keywords;
     document.querySelector(`input[value="${items.event}"]`).checked = true;
   });
-}
+};
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('save').addEventListener('click', saveOptions);
