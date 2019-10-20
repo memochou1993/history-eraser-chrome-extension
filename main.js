@@ -27,13 +27,11 @@ const handle = () => {
     switch (items.event) {
       case 'history.onVisited': {
         chrome.history.onVisited.addListener(execute);
-        console.debug(`Triggered event: history.onVisited`);
         break;
       }
   
       case 'windows.onRemoved': {
         chrome.windows.onRemoved.addListener(execute);
-        console.debug(`Triggered event: windows.onRemoved`);
         break;
       }
   
