@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "",
-  "description": "Clear browsing history by keywords.",
+  "name": "History Eraser",
+  "description": "Clear browsing history by keywords or domain name.",
   "version": "1.0",
   "browser_action": {
-    "default_title": ""
+    "default_title": "History Eraser",
+    "default_icon": "images/icon.png"
   },
   "background": {
     "scripts": [

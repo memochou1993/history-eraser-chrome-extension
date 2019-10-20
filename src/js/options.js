@@ -13,7 +13,7 @@ const saveOptions = () => {
 const restoreOptions = () => {
   chrome.storage.sync.get({
     keywords: '',
-    event: '',
+    event: 'history.onVisited',
   }, (items) => {
     document.querySelector('textarea[name="keywords"]').value = items.keywords;
     document.querySelector(`input[value="${items.event}"]`).checked = true;
