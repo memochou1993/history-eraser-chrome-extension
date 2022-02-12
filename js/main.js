@@ -2,20 +2,21 @@ const execute = () => {
   chrome.storage.sync.get({
     keywords: '',
   }, (items) => {
-    const keywords = items.keywords.split('\n');
-
-    keywords.forEach((keyword) => {
-      chrome.history.search({
-        text: keyword,
-      }, (records) => {
-        records.forEach((record) => {
-          chrome.history.deleteUrl({
-            url: record.url,
-          }, () => {
-            console.info(`Deleted record: ${record.url}`);
+    items.keywords
+      .split('\n')
+      .filter((keyword) => !!keyword)
+      .forEach((keyword) => {
+        chrome.history.search({
+          text: keyword,
+        }, (records) => {
+          records.forEach((record) => {
+            chrome.history.deleteUrl({
+              url: record.url,
+            }, () => {
+              console.info(`Deleted record: ${record.url}`);
+            });
           });
         });
-      });
     });
   });
 };
@@ -29,12 +30,10 @@ const handle = () => {
         chrome.history.onVisited.addListener(execute);
         break;
       }
-  
       case 'windows.onRemoved': {
         chrome.windows.onRemoved.addListener(execute);
         break;
       }
-  
       default: {
         break;
       }
